@@ -1,6 +1,6 @@
 from controller import DistanceSensor
 
-class DistanceSensor(DistanceSensor):
+class DistanceSensor(Device):
     def __init__(self, lookupTable, type, numberOfRays, aperture, gaussianWidth, resolution):
         self.lookupTable = lookupTable
         self.type = type
