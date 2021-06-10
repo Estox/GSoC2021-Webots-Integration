@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.8884465550270391 0.42776385971423053 0.16637547650711748 5.422701183980594
-  position -1.0374639259010932 2.7746778919788926 2.5432561127553837
+  orientation 0.3800772813274246 0.8569773682330882 0.34803886356992325 4.62879614094564
+  position -0.45131354940253315 0.620386387542195 0.28023160985208007
 }
 TexturedBackground {
 }
@@ -32,9 +32,10 @@ Robot {
   translation 0 0.04 0
   children [
     Robot {
-      translation 0 0 0.1
       children [
         DistanceSensor {
+          translation 0 0 0.101
+          rotation 0 1 0 -1.5707853071795865
           children [
             DEF SENSOR Shape {
               appearance PBRAppearance {
@@ -49,6 +50,8 @@ Robot {
           ]
           name "ds_center"
           boundingObject USE SENSOR
+          physics Physics {
+          }
         }
       ]
       boundingObject USE SENSOR
