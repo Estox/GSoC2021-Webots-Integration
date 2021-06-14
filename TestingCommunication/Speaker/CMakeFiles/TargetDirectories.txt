@@ -1,0 +1,5 @@
+/home/kacper/robocomp/components/TestingCommunication/Speaker/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/TestingCommunication/Speaker/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/TestingCommunication/Speaker/src/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/TestingCommunication/Speaker/src/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/TestingCommunication/Speaker/src/CMakeFiles/ICES__home_kacper_robocomp_components_TestingCommunication_Speaker_src.dir
