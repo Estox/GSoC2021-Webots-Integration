@@ -1,0 +1,5 @@
+/home/kacper/robocomp/components/DScomponents/DistanceSensorCaller/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/DScomponents/DistanceSensorCaller/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/DScomponents/DistanceSensorCaller/src/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/DScomponents/DistanceSensorCaller/src/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/DScomponents/DistanceSensorCaller/src/CMakeFiles/ICES__home_kacper_robocomp_components_DScomponents_DistanceSensorCaller_src.dir

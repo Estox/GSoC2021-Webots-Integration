@@ -1,0 +1,11 @@
+import "Laser.idsl";
+
+Component DistanceSensorCaller
+{
+    Communications
+    {
+        requires Laser;
+    };
+    language python;
+};
+
