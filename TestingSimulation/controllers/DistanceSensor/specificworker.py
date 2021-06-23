@@ -38,12 +38,12 @@ console = Console(highlight=False)
 class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        self.Period = 2000
+        self.Period = 100
         self.robot = Robot()
         self.step_time = int(self.robot.getBasicTimeStep())
         self.ds = self.robot.getDevice('ds_center')
         self.ds.enable(self.step_time)
-
+        self.LaserData = TLaserData()
         if startup_check:
             self.startup_check()
         else:
@@ -65,7 +65,10 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     @QtCore.Slot()
     def compute(self):
         self.robot.step(self.step_time)
-        print(self.ds.getValue())
+        self.TempLaserData = RoboCompLaser.TData()
+        self.TempLaserData.angle = 0.0
+        self.TempLaserData.dist = self.ds.getValue()
+        self.LaserData.append(self.TempLaserData)
         print('SpecificWorker.compute...')
         # computeCODE
         # try:
@@ -110,7 +113,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of getLaserData method from Laser interface
     #
     def Laser_getLaserData(self):
-        ret = RoboCompLaser.TLaserData()
+        ret = self.LaserData #RoboCompLaser.TLaserData()
         print("The method Laser_getLaserData got called!")
         return ret
     # ===================================================================
@@ -121,5 +124,3 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # From the RoboCompLaser you can use this types:
     # RoboCompLaser.LaserConfData
     # RoboCompLaser.TData
-
-

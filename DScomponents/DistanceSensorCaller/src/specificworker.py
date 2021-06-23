@@ -59,9 +59,9 @@ class SpecificWorker(GenericWorker):
     @QtCore.Slot()
     def compute(self):
         print('SpecificWorker.compute...')
-        self.laser_proxy.getLaserAndBStateData()
-        self.laser_proxy.getLaserConfData()
-        self.laser_proxy.getLaserData()
+        # self.laser_proxy.getLaserAndBStateData()
+        print(self.laser_proxy.getLaserConfData())
+        print(self.laser_proxy.getLaserData())
         # computeCODE
         # try:
         #   self.differentialrobot_proxy.setSpeedBase(100, 0)
@@ -94,5 +94,3 @@ class SpecificWorker(GenericWorker):
     # From the RoboCompLaser you can use this types:
     # RoboCompLaser.LaserConfData
     # RoboCompLaser.TData
-
-
