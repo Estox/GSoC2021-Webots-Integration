@@ -57,7 +57,7 @@ Robot {
       boundingObject USE SENSOR
       physics Physics {
       }
-      controller "DSPrint"
+      controller "DistanceSensor"
     }
     HingeJoint {
       jointParameters HingeJointParameters {
