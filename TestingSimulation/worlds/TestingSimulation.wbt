@@ -31,9 +31,9 @@ WoodenBox {
 Robot {
   translation 0 0.04 0
   children [
-    Robot {
+    DEF Distance_Sensor Robot {
       children [
-        DistanceSensor {
+        DEF ds_center DistanceSensor {
           translation 0 0 0.101
           rotation 0 1 0 -1.5707853071795865
           children [
@@ -58,6 +58,7 @@ Robot {
       physics Physics {
       }
       controller "DistanceSensor"
+      supervisor TRUE
     }
     HingeJoint {
       jointParameters HingeJointParameters {
@@ -184,4 +185,5 @@ Robot {
   physics Physics {
   }
   controller "4WheelForward"
+  supervisor TRUE
 }
