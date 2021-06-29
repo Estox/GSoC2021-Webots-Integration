@@ -21,28 +21,20 @@
 
 from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
-from rich.console import Console
 from genericworker import *
 from webotsapi import *
 
-sys.path.append('/opt/robocomp/lib')
-console = Console(highlight=False)
-
-
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
+sys.path.append('/opt/robocomp/lib')
 # import librobocomp_qmat
 # import librobocomp_osgviewer
 # import librobocomp_innermodel
 
-
-class SpecificWorker(GenericWorker, WebotsAPI):
+class SpecificWorker(GenericWorker):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
         self.Period = 100
         self.supervisor = WebotsAPI()
-        self.LaserData = TLaserData()
-        self.supervisor.enableDS()
-        
         if startup_check:
             self.startup_check()
         else:
@@ -50,12 +42,12 @@ class SpecificWorker(GenericWorker, WebotsAPI):
             self.timer.start(self.Period)
 
     def __del__(self):
-        console.print('SpecificWorker destructor')
+        print('SpecificWorker destructor')
 
     def setParams(self, params):
-        # try:
+        #try:
         #	self.innermodel = InnerModel(params["InnerModelPath"])
-        # except:
+        #except:
         #	traceback.print_exc()
         #	print("Error reading config params")
         return True
@@ -64,10 +56,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     @QtCore.Slot()
     def compute(self):
         self.supervisor.stepSimulation()
-        self.TempLaserData = RoboCompLaser.TData()
-        self.TempLaserData.angle = 0.0
-        self.TempLaserData.dist = self.supervisor.getDistance()
-        self.LaserData.append(self.TempLaserData)
+        self.supervisor.moveForward()
         print('SpecificWorker.compute...')
         # computeCODE
         # try:
@@ -94,32 +83,95 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # ===================================================================
 
     #
-    # IMPLEMENTATION of getLaserAndBStateData method from Laser interface
+    # IMPLEMENTATION of correctOdometer method from DifferentialRobot interface
     #
-    def Laser_getLaserAndBStateData(self):
-        ret = RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserAndBStateData got called!")
-        return [ret, bState]
-    #
-    # IMPLEMENTATION of getLaserConfData method from Laser interface
-    #
+    def DifferentialRobot_correctOdometer(self, x, z, alpha):
+    
+        #
+        # write your CODE here
+        #
+        pass
 
-    def Laser_getLaserConfData(self):
-        ret = RoboCompLaser.LaserConfData()
-        print("The method Laser_getLaserConfData got called!")
-        return ret
+
     #
-    # IMPLEMENTATION of getLaserData method from Laser interface
+    # IMPLEMENTATION of getBasePose method from DifferentialRobot interface
     #
-    def Laser_getLaserData(self):
-        ret = self.LaserData #RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserData got called!")
-        return ret
+    def DifferentialRobot_getBasePose(self):
+    
+        #
+        # write your CODE here
+        #
+            return [x, z, alpha]
+    #
+    # IMPLEMENTATION of getBaseState method from DifferentialRobot interface
+    #
+    def DifferentialRobot_getBaseState(self):
+    
+        #
+        # write your CODE here
+        #
+        state = RoboCompGenericBase.TBaseState()
+        return state
+    #
+    # IMPLEMENTATION of resetOdometer method from DifferentialRobot interface
+    #
+    def DifferentialRobot_resetOdometer(self):
+    
+        #
+        # write your CODE here
+        #
+        pass
+
+
+    #
+    # IMPLEMENTATION of setOdometer method from DifferentialRobot interface
+    #
+    def DifferentialRobot_setOdometer(self, state):
+    
+        #
+        # write your CODE here
+        #
+        pass
+
+
+    #
+    # IMPLEMENTATION of setOdometerPose method from DifferentialRobot interface
+    #
+    def DifferentialRobot_setOdometerPose(self, x, z, alpha):
+    
+        #
+        # write your CODE here
+        #
+        pass
+
+
+    #
+    # IMPLEMENTATION of setSpeedBase method from DifferentialRobot interface
+    #
+    def DifferentialRobot_setSpeedBase(self, adv, rot):
+    
+        #
+        # write your CODE here
+        #
+        pass
+
+
+    #
+    # IMPLEMENTATION of stopBase method from DifferentialRobot interface
+    #
+    def DifferentialRobot_stopBase(self):
+    
+        #
+        # write your CODE here
+        #
+        pass
+
+
     # ===================================================================
     # ===================================================================
 
 
     ######################
-    # From the RoboCompLaser you can use this types:
-    # RoboCompLaser.LaserConfData
-    # RoboCompLaser.TData
+    # From the RoboCompDifferentialRobot you can use this types:
+    # RoboCompDifferentialRobot.TMechParams
+
