@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.3800772813274246 0.8569773682330882 0.34803886356992325 4.62879614094564
-  position -0.45131354940253315 0.620386387542195 0.28023160985208007
+  orientation 0.31539840116905904 0.8716187269401392 0.37523944806916604 4.390024543503213
+  position -0.7210047257066466 0.8594748499528881 -0.022643503371239326
 }
 TexturedBackground {
 }
@@ -28,9 +28,40 @@ WoodenBox {
   name "wooden box(1)"
   size 0.1 0.1 0.1
 }
+WoodenBox {
+  translation -0.0855932 0.05 0.447467
+  name "wooden box(3)"
+  size 0.1 0.1 0.1
+}
 Robot {
   translation 0 0.04 0
   children [
+    DEF Camera Robot {
+      children [
+        Camera {
+          translation 0 0.03 0.09
+          rotation 0 1 0 3.14
+          children [
+            DEF cameraShape Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.01 0.01 0.01
+              }
+            }
+          ]
+          boundingObject USE cameraShape
+          physics Physics {
+          }
+        }
+      ]
+      name "robot(1)"
+      boundingObject USE cameraShape
+      physics Physics {
+      }
+      controller "SimpleWebotsCamera"
+      supervisor TRUE
+    }
     DEF Distance_Sensor Robot {
       children [
         DEF ds_center DistanceSensor {
