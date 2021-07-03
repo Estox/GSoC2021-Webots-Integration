@@ -34,7 +34,7 @@ class SpecificWorker(GenericWorker):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
         self.Period = 100
-        self.supervisor = WebotsAPI()
+        self.WebotsManager = WebotsAPI()
         if startup_check:
             self.startup_check()
         else:
@@ -55,8 +55,8 @@ class SpecificWorker(GenericWorker):
 
     @QtCore.Slot()
     def compute(self):
-        self.supervisor.stepSimulation()
-        self.supervisor.moveForward()
+        self.WebotsManager.simulationStep()
+        self.DifferentialRobot_setSpeedBase(1.0, 0)
         print('SpecificWorker.compute...')
         # computeCODE
         # try:
@@ -150,10 +150,8 @@ class SpecificWorker(GenericWorker):
     #
     def DifferentialRobot_setSpeedBase(self, adv, rot):
     
-        #
-        # write your CODE here
-        #
-        pass
+        self.WebotsManager.moveForward(adv)
+        
 
 
     #

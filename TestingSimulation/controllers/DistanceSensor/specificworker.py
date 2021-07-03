@@ -39,9 +39,9 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
         self.Period = 100
-        self.supervisor = WebotsAPI()
+        self.WebotsManager = WebotsAPI()
         self.LaserData = TLaserData()
-        self.supervisor.enableDS()
+        self.WebotsManager.enableDistanceSensor()
         
         if startup_check:
             self.startup_check()
@@ -63,10 +63,10 @@ class SpecificWorker(GenericWorker, WebotsAPI):
 
     @QtCore.Slot()
     def compute(self):
-        self.supervisor.stepSimulation()
+        self.WebotsManager.simulationStep()
         self.TempLaserData = RoboCompLaser.TData()
         self.TempLaserData.angle = 0.0
-        self.TempLaserData.dist = self.supervisor.getDistance()
+        self.TempLaserData.dist = self.WebotsManager.getDistance()
         self.LaserData.append(self.TempLaserData)
         print('SpecificWorker.compute...')
         # computeCODE
