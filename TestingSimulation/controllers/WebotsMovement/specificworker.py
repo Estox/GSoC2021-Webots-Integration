@@ -22,6 +22,8 @@
 from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
 from genericworker import *
+
+sys.path.append('..')
 from webotsapi import *
 
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
@@ -58,7 +60,7 @@ class SpecificWorker(GenericWorker):
     def compute(self):
         self.WebotsManager.simulationStep()
         self.DifferentialRobot_setSpeedBase(1.0, 0)
-        print('SpecificWorker.compute...')
+        print('Wheels.compute...')
         # computeCODE
         # try:
         #   self.differentialrobot_proxy.setSpeedBase(100, 0)

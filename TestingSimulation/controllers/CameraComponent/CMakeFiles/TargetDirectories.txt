@@ -1,0 +1,5 @@
+/home/kacper/robocomp/components/CameraComponent/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/CameraComponent/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/CameraComponent/src/CMakeFiles/rebuild_cache.dir
+/home/kacper/robocomp/components/CameraComponent/src/CMakeFiles/edit_cache.dir
+/home/kacper/robocomp/components/CameraComponent/src/CMakeFiles/ICES__home_kacper_robocomp_components_CameraComponent_src.dir

@@ -21,30 +21,19 @@
 
 from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
-from rich.console import Console
 from genericworker import *
-
-sys.path.append('..')
-from webotsapi import *
-
-sys.path.append('/opt/robocomp/lib')
-console = Console(highlight=False)
 
 
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
+sys.path.append('/opt/robocomp/lib')
 # import librobocomp_qmat
 # import librobocomp_osgviewer
 # import librobocomp_innermodel
 
-
-class SpecificWorker(GenericWorker, WebotsAPI):
+class SpecificWorker(GenericWorker):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        self.Period = 100
-        self.WebotsManager = WebotsAPI()
-        self.LaserData = TLaserData()
-        self.DistanceSensorName = "ds_center"
-        self.WebotsManager.enableDevice(self.DistanceSensorName)
+        self.Period = 2000
         if startup_check:
             self.startup_check()
         else:
@@ -52,12 +41,12 @@ class SpecificWorker(GenericWorker, WebotsAPI):
             self.timer.start(self.Period)
 
     def __del__(self):
-        console.print('SpecificWorker destructor')
+        print('SpecificWorker destructor')
 
     def setParams(self, params):
-        # try:
+        #try:
         #	self.innermodel = InnerModel(params["InnerModelPath"])
-        # except:
+        #except:
         #	traceback.print_exc()
         #	print("Error reading config params")
         return True
@@ -65,12 +54,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
 
     @QtCore.Slot()
     def compute(self):
-        self.WebotsManager.simulationStep()
-        self.TempLaserData = RoboCompLaser.TData()
-        self.TempLaserData.angle = 0.0
-        self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
-        self.LaserData.append(self.TempLaserData)
-        print('DistanceSensor.compute...')
+        print('SpecificWorker.compute...')
         # computeCODE
         # try:
         #   self.differentialrobot_proxy.setSpeedBase(100, 0)
@@ -96,32 +80,39 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # ===================================================================
 
     #
-    # IMPLEMENTATION of getLaserAndBStateData method from Laser interface
+    # IMPLEMENTATION of getAll method from CameraRGBDSimple interface
     #
-    def Laser_getLaserAndBStateData(self):
-        ret = RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserAndBStateData got called!")
-        return [ret, bState]
-    #
-    # IMPLEMENTATION of getLaserConfData method from Laser interface
-    #
-
-    def Laser_getLaserConfData(self):
-        ret = RoboCompLaser.LaserConfData()
-        print("The method Laser_getLaserConfData got called!")
+    def CameraRGBDSimple_getAll(self, camera):
+        ret = RoboCompCameraRGBDSimple.TRGBD()
+        #
+        # write your CODE here
+        #
         return ret
     #
-    # IMPLEMENTATION of getLaserData method from Laser interface
+    # IMPLEMENTATION of getDepth method from CameraRGBDSimple interface
     #
-    def Laser_getLaserData(self):
-        ret = self.LaserData #RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserData got called!")
+    def CameraRGBDSimple_getDepth(self, camera):
+        ret = RoboCompCameraRGBDSimple.TDepth()
+        #
+        # write your CODE here
+        #
+        return ret
+    #
+    # IMPLEMENTATION of getImage method from CameraRGBDSimple interface
+    #
+    def CameraRGBDSimple_getImage(self, camera):
+        ret = RoboCompCameraRGBDSimple.TImage()
+        #
+        # write your CODE here
+        #
         return ret
     # ===================================================================
     # ===================================================================
 
 
     ######################
-    # From the RoboCompLaser you can use this types:
-    # RoboCompLaser.LaserConfData
-    # RoboCompLaser.TData
+    # From the RoboCompCameraRGBDSimple you can use this types:
+    # RoboCompCameraRGBDSimple.TImage
+    # RoboCompCameraRGBDSimple.TDepth
+    # RoboCompCameraRGBDSimple.TRGBD
+

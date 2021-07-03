@@ -18,7 +18,11 @@ class WebotsAPI(Supervisor, Node):
     def getDistance(self, name):
         distanceSensor = self.getDevice(name)
         return distanceSensor.getValue()
-        
+    
+    def getImage(self, name):
+        camera = self.getDevice(name)
+        return camera.getImage()
+            
     def moveForward(self, speed, wheelsNames):
         wheels = []
         for wheel in range(len(wheelsNames)):
