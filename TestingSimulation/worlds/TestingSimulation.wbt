@@ -59,7 +59,7 @@ Robot {
       boundingObject USE cameraShape
       physics Physics {
       }
-      controller "SimpleWebotsCamera"
+      controller "CameraComponent"
       supervisor TRUE
     }
     DEF Distance_Sensor Robot {
