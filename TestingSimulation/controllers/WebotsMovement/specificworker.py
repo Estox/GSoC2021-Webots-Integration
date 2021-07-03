@@ -35,6 +35,7 @@ class SpecificWorker(GenericWorker):
         super(SpecificWorker, self).__init__(proxy_map)
         self.Period = 100
         self.WebotsManager = WebotsAPI()
+        self.wheelsNames = ['wheel1', 'wheel2', 'wheel3', 'wheel4']
         if startup_check:
             self.startup_check()
         else:
@@ -150,7 +151,7 @@ class SpecificWorker(GenericWorker):
     #
     def DifferentialRobot_setSpeedBase(self, adv, rot):
     
-        self.WebotsManager.moveForward(adv)
+        self.WebotsManager.moveForward(adv, self.wheelsNames)
         
 
 

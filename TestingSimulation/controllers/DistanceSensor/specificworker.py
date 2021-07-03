@@ -41,8 +41,8 @@ class SpecificWorker(GenericWorker, WebotsAPI):
         self.Period = 100
         self.WebotsManager = WebotsAPI()
         self.LaserData = TLaserData()
-        self.WebotsManager.enableDistanceSensor()
-        
+        self.DistanceSensorName = "ds_center"
+        self.WebotsManager.enableDevice(self.DistanceSensorName)
         if startup_check:
             self.startup_check()
         else:
@@ -66,7 +66,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
         self.WebotsManager.simulationStep()
         self.TempLaserData = RoboCompLaser.TData()
         self.TempLaserData.angle = 0.0
-        self.TempLaserData.dist = self.WebotsManager.getDistance()
+        self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
         self.LaserData.append(self.TempLaserData)
         print('SpecificWorker.compute...')
         # computeCODE

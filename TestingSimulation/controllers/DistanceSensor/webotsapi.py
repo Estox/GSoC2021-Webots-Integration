@@ -4,28 +4,27 @@ from controller import Node
 class WebotsAPI(Supervisor, Node):
     def __init__(self):
         super(WebotsAPI, self).__init__()
-        self.rootNode = self.getRoot()
-        self.rootChildren = self.rootNode.getField("children")
+        #self.rootNode = self.getRoot()
+        #self.rootChildren = self.rootNode.getField("children")
         self.stepTime = int(self.getBasicTimeStep())
         
     def simulationStep(self):
         self.step(self.stepTime)
         
-    def enableDistanceSensor(self):
-        distanceSensor = self.getDevice("ds_center")
-        distanceSensor.enable(self.stepTime)
+    def enableDevice(self, name):
+        device = self.getDevice(name)
+        device.enable(self.stepTime)
         
-    def getDistance(self):
-        distanceSensor = self.getDevice("ds_center")
+    def getDistance(self, name):
+        distanceSensor = self.getDevice(name)
         return distanceSensor.getValue()
         
-    def moveForward(self, speed):
+    def moveForward(self, speed, wheelsNames):
         wheels = []
-        wheelsNames = ['wheel1', 'wheel2', 'wheel3', 'wheel4']
-        for i in range(4):
-            wheels.append(self.getDevice(wheelsNames[i]))
-            wheels[i].setPosition(float('inf'))
-            wheels[i].setVelocity(speed)
+        for wheel in range(len(wheelsNames)):
+            wheels.append(self.getDevice(wheelsNames[wheel]))
+            wheels[wheel].setPosition(float('inf'))
+            wheels[wheel].setVelocity(speed)
 
     def close(self):
         self.simulationQuit(0)
