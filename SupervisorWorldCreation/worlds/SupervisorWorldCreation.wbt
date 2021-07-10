@@ -4,13 +4,9 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.6931032800836722 0.6931032800836722 0.1980295085953349 0.75
-  position 1.2 1.6 2.3
+  position 1.1114740994661136 1.4965062279322423 2.149168930620387
 }
 TexturedBackground {
-}
-DEF F1 Floor {
-  size 16 16
-  tileSize 2 2
 }
 TexturedBackgroundLight {
 }

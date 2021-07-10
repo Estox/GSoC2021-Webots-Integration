@@ -29,6 +29,23 @@ class RectangleArena(object):
         arena.getField('rotation').setSFRotation([0, 1, 0, 0])
         arena.getField('wallThickness').setSFFloat(0.01)
 
+class Box(object):
+    def __init__(self, name, translation: Sequence[float], size: Sequence[float], supervisor):
+        super(Box, self).__init__()
+        self.translation, self.size = translation, size
+        self.name = name
+        self.supervisor = supervisor
+        
+        base_str = ''.join(open('../../protos/wooden_box.wbo', 'r').readlines())
+        string = base_str.replace('SEEDNAME', self.name)
+        string = string.replace('translationX', str(self.translation[0]))
+        string = string.replace('translationY', str(self.translation[1]))
+        string = string.replace('translationZ', str(self.translation[2]))
+        string = string.replace('sizeX', str(self.size[0]))
+        string = string.replace('sizeY', str(self.size[1]))
+        string = string.replace('sizeZ', str(self.size[2]))
+        
+        self.supervisor.rootChildren.importMFNodeFromString(-3, string)
 """
 class Wall(object):
     def __init__(self, name, p1: Sequence[float], p2: Sequence[float], supervisor):
@@ -365,6 +382,9 @@ class WebotsAPI(Supervisor):
         self.rootChildren.importMFNodeFromString(-3, string)
         robot_handle = self.getFromDef("ROBOT")
         return YoubotRobot(robot_handle)
+    
+    def create_box(self, name, translation: Sequence[float], size: Sequence[float]):
+        return Box(name, translation, size, self)
 """
     def create_wall(self, name, p1: Sequence[float], p2: Sequence[float]):
         return Wall(name, p1, p2, self)

@@ -1,0 +1,5 @@
+#VRML_OBJ R2021a utf8
+DEF SEEDNAME WoodenBox {
+  translation translationX translationY translationZ
+  size sizeX sizeY sizeZ
+}

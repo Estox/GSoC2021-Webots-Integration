@@ -5,5 +5,5 @@ sceneTreePerspectives: 000000ff0000000100000002000000c0000000fa01000000020100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 2 "../SupervisorWorldCreation/controllers/webotsapi.py" "../SupervisorWorldCreation/controllers/world_creator/world_creator.py" "controllers/WebotsMovement/specificworker.py"
+textFiles: 1 "../SupervisorWorldCreation/controllers/webotsapi.py" "../SupervisorWorldCreation/controllers/world_creator/world_creator.py" "controllers/WebotsMovement/specificworker.py"
 consoles: Console:All:All
