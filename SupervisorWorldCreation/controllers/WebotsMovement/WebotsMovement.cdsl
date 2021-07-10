@@ -1,0 +1,11 @@
+import "DifferentialRobot.idsl";
+
+Component WebotsMovement
+{
+    Communications
+    {
+        implements DifferentialRobot;
+    };
+    language python;
+};
+

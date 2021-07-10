@@ -22,6 +22,7 @@ class SceneCreator(WebotsAPI):
     def create_scene(self):
         floorSize = [16, 16]
         self.floorNodes.append(self.create_rectangleArena("F1"))
+        self.robotNode = self.create_robot("WebotsMovement")
 """
         self.wallNodes.append(self.create_wall("W1", [8, 8], [8, -8]))
         self.wallNodes.append(self.create_wall("W2", [8, -8], [-8, -8]))
@@ -48,11 +49,10 @@ class SceneCreator(WebotsAPI):
         self.relationNodes.append(self.create_relation("R1", self.peopleNodes[2], self.objectsNodes[0]))
         self.relationNodes.append(self.create_relation("R2", self.peopleNodes[0], self.peopleNodes[1]))
 
-        self.robotNode = self.create_robot()
+        
         self.robotNode.set_position([5, 5])
-
-
 """
+
 simulation = SceneCreator()
 simulation.remove_objects()
 simulation.create_scene()

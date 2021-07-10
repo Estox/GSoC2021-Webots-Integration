@@ -315,7 +315,14 @@ class TiagoRobot(object):
     def get_model_bounding_box(self):
         return self.handle.getField('boundingObject')
 """
-
+class YoubotRobot(object):
+    def __init__(self, handle):
+        super(YoubotRobot, self).__init__()
+        self.handle = handle
+        
+    def remove(self):
+        self.handle.remove()
+        
 class WebotsAPI(Supervisor):
     def __init__(self):
         super(WebotsAPI, self).__init__()
@@ -329,6 +336,13 @@ class WebotsAPI(Supervisor):
     def simulationStep(self):
         self.step(self.stepTime)
         
+    def moveForward(self, speed, wheelsNames):
+        wheels = []
+        for wheel in range(len(wheelsNames)):
+            wheels.append(self.getDevice(wheelsNames[wheel]))
+            wheels[wheel].setPosition(float('inf'))
+            wheels[wheel].setVelocity(speed)
+            
     def create_floor(self, name, size):
         self.rootChildren.importMFNodeFromString(-3, "DEF " + name + " Floor {}")  # Add floor
         floorNode = self.getFromDef(name)
@@ -343,6 +357,14 @@ class WebotsAPI(Supervisor):
     
     def create_rectangleArena(self, name):
         return RectangleArena(name, self)
+        
+    def create_robot(self, controller):
+        base_str = ''.join(open('../../protos/Youbot.wbo', 'r').readlines())
+        string = base_str.replace('void', controller)
+        
+        self.rootChildren.importMFNodeFromString(-3, string)
+        robot_handle = self.getFromDef("ROBOT")
+        return YoubotRobot(robot_handle)
 """
     def create_wall(self, name, p1: Sequence[float], p2: Sequence[float]):
         return Wall(name, p1, p2, self)
@@ -369,15 +391,6 @@ class WebotsAPI(Supervisor):
     def create_object(self, name, otype, x, z, angle):
         return Object(name, otype, x, z, angle, self)
 """
-"""
-    def create_robot(self):
-        self.rootChildren.importMFNode(-3, '../../protos/TiagoIron.wbo')
-        robot_handle = self.getFromDef("ROBOT")
-        return TiagoRobot(robot_handle)
-"""
-
-
-
 """
     @staticmethod
     def get_transform_matrix(x: float, y: float, z: float, angle: float):

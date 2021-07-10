@@ -1,39 +1,4 @@
-#VRML_SIM R2021a utf8
-WorldInfo {
-  coordinateSystem "NUE"
-}
-Viewpoint {
-  orientation 0.2768375600323975 0.9455108979881935 0.17137709047847843 5.089173981950989
-  position -1.4041900927728235 0.9689287889300506 0.44780706612941823
-}
-TexturedBackground {
-}
-TexturedBackgroundLight {
-}
-DEF Arena RectangleArena {
-  floorSize 3 3
-  floorTileSize 0.25 0.25
-  wallHeight 0.05
-}
-WoodenBox {
-  translation 0.696971 0.05 -0.752308
-  size 0.1 0.1 0.1
-}
-WoodenBox {
-  translation -0.640371 0.05 -0.510685
-  name "wooden box(2)"
-  size 0.1 0.1 0.1
-}
-WoodenBox {
-  translation 0.752018 0.05 0.674951
-  name "wooden box(1)"
-  size 0.1 0.1 0.1
-}
-WoodenBox {
-  translation -0.885881 0.05 0.695107
-  name "wooden box(3)"
-  size 0.1 0.1 0.1
-}
+#VRML_OBJ R2021a utf8
 DEF ROBOT Robot {
   translation 0 0.12 0
   rotation 1 0 0 -1.5708
@@ -1661,6 +1626,6 @@ DEF ROBOT Robot {
       0 0 0
     ]
   }
-  controller "WebotsMovement"
+  controller "void"
   supervisor TRUE
 }
