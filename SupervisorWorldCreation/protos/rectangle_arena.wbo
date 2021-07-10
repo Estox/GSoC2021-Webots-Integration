@@ -1,0 +1,6 @@
+#VRML_OBJ R2021a utf8
+DEF SEEDNAME RectangleArena {
+  floorSize floorSizeX floorSizeY
+  floorTileSize floorTileSizeX floorTileSizeY
+  wallHeight wallHeightZ
+}

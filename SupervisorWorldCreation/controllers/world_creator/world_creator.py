@@ -21,7 +21,7 @@ class SceneCreator(WebotsAPI):
 
     def create_scene(self):
         floorSize = [16, 16]
-        self.floorNodes.append(self.create_floor("F1", floorSize))
+        self.floorNodes.append(self.create_rectangleArena("F1"))
 """
         self.wallNodes.append(self.create_wall("W1", [8, 8], [8, -8]))
         self.wallNodes.append(self.create_wall("W2", [8, -8], [-8, -8]))

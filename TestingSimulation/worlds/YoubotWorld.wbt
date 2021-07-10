@@ -10,7 +10,7 @@ TexturedBackground {
 }
 TexturedBackgroundLight {
 }
-RectangleArena {
+DEF Arena RectangleArena {
   floorSize 3 3
   floorTileSize 0.25 0.25
   wallHeight 0.05

@@ -4,6 +4,31 @@ from typing import Sequence
 
 from controller import Supervisor
 
+class RectangleArena(object):
+    def __init__(self, name, supervisor):
+        super(RectangleArena, self).__init__()
+        self.name = name
+        self.supervisor = supervisor
+        
+        floorSize = [3,3]
+        floorTileSize = [0.25, 0.25]
+        wallHeight = 0.05
+        
+        base_str = ''.join(open('../../protos/rectangle_arena.wbo', 'r').readlines())
+        string = base_str.replace('SEEDNAME', self.name)
+        string = string.replace('floorSizeX', str(floorSize[0]))
+        string = string.replace('floorSizeY', str(floorSize[1]))
+        string = string.replace('floorTileSizeX', str(floorTileSize[0]))
+        string = string.replace('floorTileSizeY', str(floorTileSize[1]))
+        string = string.replace('wallHeightZ', str(wallHeight))
+        
+        self.supervisor.rootChildren.importMFNodeFromString(-3, string)
+        arena = self.supervisor.getFromDef(self.name)
+        
+        arena.getField('translation').setSFVec3f([0, 0, 0])
+        arena.getField('rotation').setSFRotation([0, 1, 0, 0])
+        arena.getField('wallThickness').setSFFloat(0.01)
+
 """
 class Wall(object):
     def __init__(self, name, p1: Sequence[float], p2: Sequence[float], supervisor):
@@ -310,9 +335,14 @@ class WebotsAPI(Supervisor):
         floorNode.getField('size').setSFVec2f(size)  # Floor size [x ,z] in NUE CS
         floorNode.getField('tileSize').setSFVec2f([2, 2])
         floorNode.getField('appearance').getSFNode().getField("type").setSFString("chequered")
+        return floorNode
+        
     def remove_objects(self):
         while self.getRoot().getField("children").getMFNode(-3) != self.getRoot().getField("children").getMFNode(2):
             self.getRoot().getField("children").getMFNode(3).remove()
+    
+    def create_rectangleArena(self, name):
+        return RectangleArena(name, self)
 """
     def create_wall(self, name, p1: Sequence[float], p2: Sequence[float]):
         return Wall(name, p1, p2, self)
