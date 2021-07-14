@@ -1,5 +1,0 @@
-/home/kacper/robocomp/components/DistanceSensor/CMakeFiles/rebuild_cache.dir
-/home/kacper/robocomp/components/DistanceSensor/CMakeFiles/edit_cache.dir
-/home/kacper/robocomp/components/DistanceSensor/src/CMakeFiles/rebuild_cache.dir
-/home/kacper/robocomp/components/DistanceSensor/src/CMakeFiles/edit_cache.dir
-/home/kacper/robocomp/components/DistanceSensor/src/CMakeFiles/ICES__home_kacper_robocomp_components_DistanceSensor_src.dir

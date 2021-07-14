@@ -1,5 +1,0 @@
-/home/kacper/robocomp/components/TestingCommunication/Caller/CMakeFiles/rebuild_cache.dir
-/home/kacper/robocomp/components/TestingCommunication/Caller/CMakeFiles/edit_cache.dir
-/home/kacper/robocomp/components/TestingCommunication/Caller/src/CMakeFiles/rebuild_cache.dir
-/home/kacper/robocomp/components/TestingCommunication/Caller/src/CMakeFiles/edit_cache.dir
-/home/kacper/robocomp/components/TestingCommunication/Caller/src/CMakeFiles/ICES__home_kacper_robocomp_components_TestingCommunication_Caller_src.dir
