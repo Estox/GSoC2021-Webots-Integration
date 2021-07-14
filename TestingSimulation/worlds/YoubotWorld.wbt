@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.2768375600323975 0.9455108979881935 0.17137709047847843 5.089173981950989
-  position -1.4041900927728235 0.9689287889300506 0.44780706612941823
+  orientation 0.8284384945799008 -0.5044037581139859 -0.2434471390233931 5.253719992568744
+  position 0.5056107390800848 1.3043715338385664 0.9672825166621287
 }
 TexturedBackground {
 }
@@ -38,6 +38,25 @@ DEF ROBOT Robot {
   translation 0 0.12 0
   rotation 1 0 0 -1.5708
   children [
+    DEF Camera Robot {
+      translation 0.28 0 0
+      children [
+        Camera {
+          rotation 0 1 0 3.14
+          children [
+            DEF cameraShape Shape {
+              appearance PBRAppearance {
+              }
+              geometry Box {
+                size 0.01 0.01 0.01
+              }
+            }
+          ]
+          boundingObject USE cameraShape
+        }
+      ]
+      boundingObject USE cameraShape
+    }
     Group {
       children [
         Shape {

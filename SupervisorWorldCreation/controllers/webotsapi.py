@@ -333,9 +333,18 @@ class TiagoRobot(object):
         return self.handle.getField('boundingObject')
 """
 class YoubotRobot(object):
-    def __init__(self, handle):
+    def __init__(self, handle, supervisor):
         super(YoubotRobot, self).__init__()
         self.handle = handle
+        self.supervisor = supervisor
+        
+    def addDistanceSensor(self):
+        children = self.supervisor.getFromDef("ROBOT").getField("children")
+        
+        base_str = ''.join(open('../../protos/Distance_sensor.wbo', 'r').readlines())
+        string = base_str
+        
+        children.importMFNodeFromString(-1, string)
         
     def remove(self):
         self.handle.remove()
@@ -360,6 +369,14 @@ class WebotsAPI(Supervisor):
             wheels[wheel].setPosition(float('inf'))
             wheels[wheel].setVelocity(speed)
             
+    def enableDevice(self, name):
+        device = self.getDevice(name)
+        device.enable(self.stepTime)      
+        
+    def getDistance(self, name):
+        distanceSensor = self.getDevice(name)
+        return distanceSensor.getValue() 
+        
     def create_floor(self, name, size):
         self.rootChildren.importMFNodeFromString(-3, "DEF " + name + " Floor {}")  # Add floor
         floorNode = self.getFromDef(name)
@@ -381,7 +398,7 @@ class WebotsAPI(Supervisor):
         
         self.rootChildren.importMFNodeFromString(-3, string)
         robot_handle = self.getFromDef("ROBOT")
-        return YoubotRobot(robot_handle)
+        return YoubotRobot(robot_handle, self)
     
     def create_box(self, name, translation: Sequence[float], size: Sequence[float]):
         return Box(name, translation, size, self)

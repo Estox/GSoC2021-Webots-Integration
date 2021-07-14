@@ -1,0 +1,30 @@
+#VRML_OBJ R2021a utf8
+DEF Distance_Sensor Robot {
+  children [
+    DEF ds_center DistanceSensor {
+      translation 0 0 0.101
+      rotation 0 1 0 -1.5707853071795865
+      children [
+        DEF SENSOR Shape {
+          appearance PBRAppearance {
+            baseColor 0.203922 0.396078 0.643137
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_center"
+      boundingObject USE SENSOR
+      physics Physics {
+      }
+    }
+  ]
+  boundingObject USE SENSOR
+  physics Physics {
+  }
+  controller "DistanceSensor"
+  supervisor TRUE
+}
