@@ -368,6 +368,25 @@ class WebotsAPI(Supervisor):
             wheels.append(self.getDevice(wheelsNames[wheel]))
             wheels[wheel].setPosition(float('inf'))
             wheels[wheel].setVelocity(speed)
+    
+    def avoidRight(self, speed, rot, wheelsNames):
+        wheels = []
+        for wheel in range(len(wheelsNames)):
+            wheels.append(self.getDevice(wheelsNames[wheel]))
+            wheels[wheel].setPosition(float('inf'))
+            
+        if rot == 0.0:
+            for wheel in range(len(wheelsNames)):
+                wheels.append(self.getDevice(wheelsNames[wheel]))
+                wheels[wheel].setPosition(float('inf'))
+                wheels[wheel].setVelocity(speed)
+        else:
+            leftSpeed = -5.0
+            rightSpeed = 5.0
+            wheels[0].setVelocity(leftSpeed)
+            wheels[1].setVelocity(rightSpeed)
+            wheels[2].setVelocity(leftSpeed)
+            wheels[3].setVelocity(rightSpeed)
             
     def enableDevice(self, name):
         device = self.getDevice(name)
