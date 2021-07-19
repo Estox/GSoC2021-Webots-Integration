@@ -1,9 +1,9 @@
 #VRML_OBJ R2021a utf8
 DEF Distance_Sensor Robot {
   children [
-    DEF ds_center DistanceSensor {
-      translation 0.27 0 0.005
-      rotation 0 1 0 0
+    DEF SEEDNAME DistanceSensor {
+      translation translationX translationY translationZ
+      rotation rotationX rotationY rotationZ rotationROT
       children [
         DEF SENSOR Shape {
           appearance PBRAppearance {

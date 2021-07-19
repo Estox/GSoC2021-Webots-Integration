@@ -339,10 +339,21 @@ class YoubotRobot(object):
         self.supervisor = supervisor
         
     def addDistanceSensor(self):
-        children = self.supervisor.getFromDef("ROBOT").getField("children")
+        children = self.supervisor.getFromDef("ROBOT").getField ("children")
+        
+        name = "ds_center"
+        translation = [0.27, 0, 0.005]
+        rotation = [0, 1, 0, 0]
         
         base_str = ''.join(open('../../protos/Distance_sensor.wbo', 'r').readlines())
-        string = base_str
+        string = base_str.replace('SEEDNAME', name)
+        string = string.replace('translationX', str(translation[0]))
+        string = string.replace('translationY', str(translation[1]))
+        string = string.replace('translationZ', str(translation[2]))
+        string = string.replace('rotationX', str(rotation[0]))
+        string = string.replace('rotationY', str(rotation[1]))
+        string = string.replace('rotationZ', str(rotation[2]))
+        string = string.replace('rotationROT', str(rotation[3]))
         
         children.importMFNodeFromString(-1, string)
         
