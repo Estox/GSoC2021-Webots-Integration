@@ -318,11 +318,8 @@ class Bot(object):
     def __init__(self):
         super(Bot, self).__init__()
     
-    def addDistanceSensor(self, name):
+    def addDistanceSensor(self, translation, rotation, name):
         children = self.supervisor.getFromDef(self.robotName).getField("children")
-
-        translation = [0.27, 0, 0.005]
-        rotation = [0, 1, 0, 0]
 
         return Distance_Sensor(name, translation, rotation, children)
         

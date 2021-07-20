@@ -22,7 +22,9 @@ class SceneCreator(WebotsAPI):
         self.arenaNode = self.create_rectangleArena("arena")
         self.robotNode = self.create_robot("Ribbit", "void")
         
-        self.robotNode.addDistanceSensor("ds_center")
+        translation = [0.27, 0, 0.005]
+        rotation = [0, 1, 0, 0]
+        self.robotNode.addDistanceSensor(translation, rotation, "ds_center")
         size = [0.3, 0.3, 0.3]
         translation1, translation2, translation3, translation4 = [0.7, 0.15, -0.75], [-0.64, 0.15, -0.5], [0.75, 0.15, 0.68],  [-0.89, 0.15, 0.7]
         self.boxNodes.append(self.create_box("B1", translation1, size))
