@@ -1,5 +1,5 @@
 #VRML_OBJ R2021a utf8
-DEF ROBOT Robot {
+DEF Youbot Robot {
   translation 0 0.12 0
   rotation 1 0 0 -1.5708
   children [

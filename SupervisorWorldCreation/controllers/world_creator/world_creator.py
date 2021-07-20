@@ -20,7 +20,7 @@ class SceneCreator(WebotsAPI):
 
     def create_scene(self):
         self.arenaNode = self.create_rectangleArena("arena")
-        self.robotNode = self.create_youbot("YouBotController")
+        self.robotNode = self.create_robot("Ribbit", "void")
         
         self.robotNode.addDistanceSensor("ds_center")
         size = [0.3, 0.3, 0.3]

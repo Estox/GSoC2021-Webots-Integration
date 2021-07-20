@@ -364,7 +364,7 @@ class TiagoRobot(object):
     def get_model_bounding_box(self):
         return self.handle.getField('boundingObject')
 """
-class YoubotRobot(Bot):
+class Automaton(Bot):
     def __init__(self, handle, supervisor):
         self.handle = handle
         self.supervisor = supervisor
@@ -435,13 +435,13 @@ class WebotsAPI(Supervisor):
     def create_rectangleArena(self, name):
         return RectangleArena(name, self)
         
-    def create_youbot(self, controller):
-        base_str = ''.join(open('../../protos/Youbot.wbo', 'r').readlines())
+    def create_robot(self, name, controller):
+        base_str = ''.join(open('../../protos/' + name + '.wbo', 'r').readlines())
         string = base_str.replace('void', controller)
         
         self.rootChildren.importMFNodeFromString(-3, string)
-        robot_handle = self.getFromDef("ROBOT")
-        return YoubotRobot(robot_handle, self)
+        robot_handle = self.getFromDef(name)
+        return Automaton(robot_handle, self)
     
     def create_box(self, name, translation: Sequence[float], size: Sequence[float]):
         return Box(name, translation, size, self)
