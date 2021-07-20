@@ -295,6 +295,38 @@ class Object(object):
     def get_model_bounding_box(self):
         return self.handle.getField('boundingObject')
 """
+class Distance_Sensor(object):
+    def __init__(self, name, translation, rotation, children):
+        self.name = name
+        self.translation = translation
+        self.rotation = rotation
+        self.children = children
+        
+        base_str = ''.join(open('../../protos/Distance_sensor.wbo', 'r').readlines())
+        string = base_str.replace('SEEDNAME', self.name)
+        string = string.replace('translationX', str(self.translation[0]))
+        string = string.replace('translationY', str(self.translation[1]))
+        string = string.replace('translationZ', str(self.translation[2]))
+        string = string.replace('rotationX', str(self.rotation[0]))
+        string = string.replace('rotationY', str(self.rotation[1]))
+        string = string.replace('rotationZ', str(self.rotation[2]))
+        string = string.replace('rotationROT', str(self.rotation[3]))
+        
+        self.children.importMFNodeFromString(-1, string)
+    
+class Bot(object):
+    def __init__(self):
+        super(Bot, self).__init__()
+    
+    def addDistanceSensor(self, name):
+        children = self.supervisor.getFromDef(self.robotName).getField("children")
+
+        translation = [0.27, 0, 0.005]
+        rotation = [0, 1, 0, 0]
+
+        return Distance_Sensor(name, translation, rotation, children)
+        
+    
 """
 class TiagoRobot(object):
     def __init__(self, handle):
@@ -332,30 +364,11 @@ class TiagoRobot(object):
     def get_model_bounding_box(self):
         return self.handle.getField('boundingObject')
 """
-class YoubotRobot(object):
+class YoubotRobot(Bot):
     def __init__(self, handle, supervisor):
-        super(YoubotRobot, self).__init__()
         self.handle = handle
         self.supervisor = supervisor
-        
-    def addDistanceSensor(self):
-        children = self.supervisor.getFromDef("ROBOT").getField ("children")
-        
-        name = "ds_center"
-        translation = [0.27, 0, 0.005]
-        rotation = [0, 1, 0, 0]
-        
-        base_str = ''.join(open('../../protos/Distance_sensor.wbo', 'r').readlines())
-        string = base_str.replace('SEEDNAME', name)
-        string = string.replace('translationX', str(translation[0]))
-        string = string.replace('translationY', str(translation[1]))
-        string = string.replace('translationZ', str(translation[2]))
-        string = string.replace('rotationX', str(rotation[0]))
-        string = string.replace('rotationY', str(rotation[1]))
-        string = string.replace('rotationZ', str(rotation[2]))
-        string = string.replace('rotationROT', str(rotation[3]))
-        
-        children.importMFNodeFromString(-1, string)
+        self.robotName = self.handle.getDef()
         
     def remove(self):
         self.handle.remove()
@@ -422,7 +435,7 @@ class WebotsAPI(Supervisor):
     def create_rectangleArena(self, name):
         return RectangleArena(name, self)
         
-    def create_robot(self, controller):
+    def create_youbot(self, controller):
         base_str = ''.join(open('../../protos/Youbot.wbo', 'r').readlines())
         string = base_str.replace('void', controller)
         
