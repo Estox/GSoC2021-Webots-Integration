@@ -1,0 +1,31 @@
+#VRML_OBJ R2021a utf8
+DEF Camera Robot {
+  children [
+    DEF SEEDNAME Camera {
+      translation translationX translationY translationZ
+      rotation rotationX rotationY rotationZ rotationROT
+      children [
+        DEF SENSOR Shape {
+          appearance PBRAppearance {
+            baseColor 0.2 0.4 0.6
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "camera"
+      boundingObject USE SENSOR
+      physics Physics {
+    }
+    }
+  ]
+
+  boundingObject USE SENSOR
+  physics Physics {
+  }
+  controller "SimpleWebotsCamera"
+  supervisor TRUE
+}

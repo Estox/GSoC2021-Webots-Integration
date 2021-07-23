@@ -295,14 +295,15 @@ class Object(object):
     def get_model_bounding_box(self):
         return self.handle.getField('boundingObject')
 """
-class Distance_Sensor(object):
-    def __init__(self, name, translation, rotation, children):
+class Device(object):
+    #Currently available "Distance_sensor", "Lidar", "Camera"
+    def __init__(self, deviceName, name, translation, rotation, children):
         self.name = name
         self.translation = translation
         self.rotation = rotation
         self.children = children
         
-        base_str = ''.join(open('../../protos/Distance_sensor.wbo', 'r').readlines())
+        base_str = ''.join(open('../../protos/' + deviceName + '.wbo', 'r').readlines())
         string = base_str.replace('SEEDNAME', self.name)
         string = string.replace('translationX', str(self.translation[0]))
         string = string.replace('translationY', str(self.translation[1]))
@@ -313,15 +314,14 @@ class Distance_Sensor(object):
         string = string.replace('rotationROT', str(self.rotation[3]))
         
         self.children.importMFNodeFromString(-1, string)
-    
+        
 class Bot(object):
     def __init__(self):
         super(Bot, self).__init__()
     
-    def addDistanceSensor(self, translation, rotation, name):
+    def addDevice(self, deviceName, translation, rotation, name):
         children = self.supervisor.getFromDef(self.robotName).getField("children")
-
-        return Distance_Sensor(name, translation, rotation, children)
+        return Device(deviceName, name, translation, rotation, children)
         
     
 """

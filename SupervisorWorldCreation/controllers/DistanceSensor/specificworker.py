@@ -99,7 +99,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of getLaserAndBStateData method from Laser interface
     #
     def Laser_getLaserAndBStateData(self):
-        ret = RoboCompLaser.TLaserData()
+        ret = self.LaserData #RoboCompLaser.TLaserData()
         print("The method Laser_getLaserAndBStateData got called!")
         return [ret, bState]
     #
