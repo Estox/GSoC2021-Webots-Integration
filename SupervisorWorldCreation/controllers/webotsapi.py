@@ -382,6 +382,10 @@ class WebotsAPI(Supervisor):
     
     def simulationStep(self):
         self.step(self.stepTime)
+    
+    def getImage(self, name):
+        camera = self.getDevice(name)
+        return camera.getImage()
         
     def moveForward(self, speed, wheelsNames):
         wheels = []

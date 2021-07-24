@@ -24,8 +24,8 @@ class SceneCreator(WebotsAPI):
         
         translationCameraDevice = [0.255, 0.1, 0]
         rotationCameraDevice = [0, 1, 0, -1.5708]
-        #self.robotNode.addDevice("Camera", "camera", translationCameraDevice, rotationCameraDevice)
-        self.robotNode.addDevice("Distance_sensor", "camera", translationCameraDevice, rotationCameraDevice,)
+        self.robotNode.addDevice("Camera", "camera", translationCameraDevice, rotationCameraDevice)
+        #self.robotNode.addDevice("Distance_sensor", "DS", translationCameraDevice, rotationCameraDevice,)
         translationLidarSensor = [0.255, 0, 0]
         rotationLidarSensor = [0, 1, 0, -1.5708]
         self.robotNode.addDevice("Lidar", "lidar", translationLidarSensor, rotationLidarSensor)

@@ -26,6 +26,6 @@ DEF Camera Robot {
   boundingObject USE SENSOR
   physics Physics {
   }
-  controller "SimpleWebotsCamera"
+  controller "CameraComponent"
   supervisor TRUE
 }
