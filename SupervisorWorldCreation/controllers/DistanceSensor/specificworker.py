@@ -40,11 +40,7 @@ console = Console(highlight=False)
 class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        self.Period = 100
-        self.WebotsManager = WebotsAPI()
-        self.LaserData = TLaserData()
-        self.DistanceSensorName = "ds_center"
-        self.WebotsManager.enableDevice(self.DistanceSensorName)
+        
         if startup_check:
             self.startup_check()
         else:
@@ -55,28 +51,33 @@ class SpecificWorker(GenericWorker, WebotsAPI):
         console.print('SpecificWorker destructor')
 
     def setParams(self, params):
-        # try:
-        #	self.innermodel = InnerModel(params["InnerModelPath"])
-        # except:
-        #	traceback.print_exc()
-        #	print("Error reading config params")
+        try:
+            self.WebotsManager = WebotsAPI()
+            self.Period = self.WebotsManager.stepTime
+            self.LaserData = TLaserData()
+            
+            self.DistanceSensorName = self.WebotsManager.getFromDef("Distance_Sensor")\
+            .getField("children").getMFNode(-1).getField("name").getSFString()
+            
+            self.WebotsManager.enableDevice(self.DistanceSensorName)
+            self.TempLaserData = RoboCompLaser.TData()
+        except:
+            traceback.print_exc()
+            print("Error reading config params")
         return True
 
 
     @QtCore.Slot()
     def compute(self):
-        self.WebotsManager.simulationStep()
-        self.TempLaserData = RoboCompLaser.TData()
-        self.TempLaserData.angle = 0.0
-        self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
-        self.LaserData.append(self.TempLaserData)
-        print('DistanceSensor.compute...')
-        # computeCODE
-        # try:
-        #   self.differentialrobot_proxy.setSpeedBase(100, 0)
-        # except Ice.Exception as e:
-        #   traceback.print_exc()
-        #   print(e)
+        try:
+            self.WebotsManager.simulationStep()
+            self.TempLaserData.angle = 0.0
+            self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
+            self.LaserData.append(self.TempLaserData)
+            print('DistanceSensor.compute...')
+        except Ice.Exception as e:
+            traceback.print_exc()
+            print(e)
 
         # The API of python-innermodel is not exactly the same as the C++ version
         # self.innermodel.updateTransformValues('head_rot_tilt_pose', 0, 0, 0, 1.3, 0, 0)

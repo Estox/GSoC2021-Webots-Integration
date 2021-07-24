@@ -319,7 +319,7 @@ class Bot(object):
     def __init__(self):
         super(Bot, self).__init__()
     
-    def addDevice(self, deviceName, translation, rotation, name):
+    def addDevice(self, deviceName, name, translation, rotation):
         children = self.supervisor.getFromDef(self.robotName).getField("children")
         return Device(deviceName, name, translation, rotation, children)
         

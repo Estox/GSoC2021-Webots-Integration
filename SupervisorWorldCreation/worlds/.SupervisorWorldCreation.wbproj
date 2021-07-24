@@ -5,6 +5,6 @@ sceneTreePerspectives: 000000ff000000010000000200000150000000fa01000000020100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 0 "controllers/webotsapi.py" "controllers/YouBotController/specificworker.py" "controllers/world_creator/world_creator.py" "controllers/DistanceSensor/specificworker.py" "protos/Camera.wbo"
+textFiles: 3 "controllers/webotsapi.py" "controllers/YouBotController/specificworker.py" "controllers/world_creator/world_creator.py" "controllers/DistanceSensor/specificworker.py" "../TestingSimulation/controllers/CameraComponent/specificworker.py" "protos/Camera.wbo"
 globalOptionalRendering: DistanceSensorRays::LidarRaysPaths::LidarPointClouds
 consoles: Console:All:All
