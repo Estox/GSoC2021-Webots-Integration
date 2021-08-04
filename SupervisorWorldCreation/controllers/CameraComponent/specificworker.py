@@ -47,7 +47,6 @@ class SpecificWorker(GenericWorker):
         try:
             self.WebotsManager = WebotsAPI()
             self.Period = self.WebotsManager.stepTime
-            self.Image = RoboCompCameraRGBDSimple.TImage()
             
             self.CameraRGBDSimpleName = self.WebotsManager.getFromDef("Camera")\
             .getField("children").getMFNode(-1).getField("name").getSFString()
@@ -64,8 +63,6 @@ class SpecificWorker(GenericWorker):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            self.Image = self.WebotsManager.getImage(self.CameraRGBDSimpleName)
-            print('Camera.compute...')
         except Ice.Exception as e:
             traceback.print_exc()
         # The API of python-innermodel is not exactly the same as the C++ version
@@ -107,7 +104,7 @@ class SpecificWorker(GenericWorker):
     # IMPLEMENTATION of getImage method from CameraRGBDSimple interface
     #
     def CameraRGBDSimple_getImage(self, camera):
-        ret = self.Image #RoboCompCameraRGBDSimple.TImage()
+        ret = self.WebotsManager.getImage(self.CameraRGBDSimpleName)
         return ret
     # ===================================================================
     # ===================================================================

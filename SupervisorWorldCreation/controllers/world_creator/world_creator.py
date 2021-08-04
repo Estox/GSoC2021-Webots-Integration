@@ -30,7 +30,8 @@ class SceneCreator(WebotsAPI):
         rotationLidarSensor = [0, 1, 0, -1.5708]
         self.robotNode.addDevice("Lidar", "lidar", translationLidarSensor, rotationLidarSensor)
         size = [0.3, 0.3, 0.3]
-        translation1, translation2, translation3, translation4 = [0.7, 0.15, -0.75], [-0.64, 0.15, -0.5], [0.75, 0.15, 0.68],  [-0.89, 0.15, 0.7]
+        translation1, translation2, translation3, translation4 = [0.7, 0.15, -0.75], [-0.64, 0.15, -0.5],\
+        [0.75, 0.15, 0.68],  [-0.89, 0.15, 0.7]
         self.boxNodes.append(self.create_box("B1", translation1, size))
         self.boxNodes.append(self.create_box("B2", translation2, size))
         self.boxNodes.append(self.create_box("B3", translation3, size))
