@@ -1,0 +1,11 @@
+import "OmniRobot.idsl";
+
+Component OmnidirectionalPlatform
+{
+    Communications
+    {
+        implements OmniRobot;
+    };
+    language python;
+};
+
