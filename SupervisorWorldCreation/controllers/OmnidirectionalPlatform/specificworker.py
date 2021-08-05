@@ -58,7 +58,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            print('DistanceSensor.compute...')
+            print('SpecificWorker.compute...')
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
