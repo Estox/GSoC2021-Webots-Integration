@@ -23,6 +23,8 @@ from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
 from genericworker import *
 
+sys.path.append('..')
+from webotsapi import *
 
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
 sys.path.append('/opt/robocomp/lib')
@@ -30,10 +32,10 @@ sys.path.append('/opt/robocomp/lib')
 # import librobocomp_osgviewer
 # import librobocomp_innermodel
 
-class SpecificWorker(GenericWorker):
+class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        self.Period = 2000
+
         if startup_check:
             self.startup_check()
         else:
@@ -44,30 +46,22 @@ class SpecificWorker(GenericWorker):
         print('SpecificWorker destructor')
 
     def setParams(self, params):
-        #try:
-        #	self.innermodel = InnerModel(params["InnerModelPath"])
-        #except:
-        #	traceback.print_exc()
-        #	print("Error reading config params")
+        try:
+            self.WebotsManager = WebotsAPI()
+        except:
+            traceback.print_exc()
+            print("Error reading config params")
         return True
 
 
     @QtCore.Slot()
     def compute(self):
-        print('SpecificWorker.compute...')
-        # computeCODE
-        # try:
-        #   self.differentialrobot_proxy.setSpeedBase(100, 0)
-        # except Ice.Exception as e:
-        #   traceback.print_exc()
-        #   print(e)
-
-        # The API of python-innermodel is not exactly the same as the C++ version
-        # self.innermodel.updateTransformValues('head_rot_tilt_pose', 0, 0, 0, 1.3, 0, 0)
-        # z = librobocomp_qmat.QVec(3,0)
-        # r = self.innermodel.transform('rgbd', z, 'laser')
-        # r.printvector('d')
-        # print(r[0], r[1], r[2])
+        try:
+            self.WebotsManager.simulationStep()
+            print('DistanceSensor.compute...')
+        except Ice.Exception as e:
+            traceback.print_exc()
+            print(e)
 
         return True
 
