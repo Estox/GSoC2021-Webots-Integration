@@ -48,6 +48,12 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def setParams(self, params):
         try:
             self.WebotsManager = WebotsAPI()
+            self.wheelsNames = ['wheel1', 'wheel2', 'wheel3', 'wheel4']
+            self.wheelTranslation = self.WebotsManager.getFromDef('WHEEL_SOLID')\
+            .getField('translation').getSFVec3f()
+            self.wheelRadius = self.WebotsManager.getFromDef('WHEEL_SOLID').getField('boundingObject').getSFNode()\
+            .getField('radius').getSFFloat()
+            self.wheelParameters = [self.wheelsNames, self.wheelTranslation, self.wheelRadius]
         except:
             traceback.print_exc()
             print("Error reading config params")
@@ -58,7 +64,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            print('SpecificWorker.compute...')
+            self.OmniRobot_setSpeedBase(0.001, 0, 0)
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
@@ -140,10 +146,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of setSpeedBase method from OmniRobot interface
     #
     def OmniRobot_setSpeedBase(self, advx, advz, rot):
-    
-        #
-        # write your CODE here
-        #
+        self.WebotsManager.omniMovement(advx, advz, rot, self.wheelParameters)
         pass
 
 

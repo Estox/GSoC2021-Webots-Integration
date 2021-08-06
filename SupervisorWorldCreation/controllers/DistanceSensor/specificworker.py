@@ -74,7 +74,6 @@ class SpecificWorker(GenericWorker, WebotsAPI):
             self.TempLaserData.angle = 0.0
             self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
             self.LaserData.append(self.TempLaserData)
-            print('DistanceSensor.compute...')
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
@@ -101,6 +100,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     #
     def Laser_getLaserAndBStateData(self):
         ret = self.LaserData #RoboCompLaser.TLaserData()
+        bState = 0
         print("The method Laser_getLaserAndBStateData got called!")
         return [ret, bState]
     #

@@ -387,12 +387,32 @@ class WebotsAPI(Supervisor):
         camera = self.getDevice(name)
         return camera.getImage()
         
-    def moveForward(self, speed, wheelsNames):
+    def omniMovement(self, advx, advz, rot, wheelParameters):
+        wheelsNames = wheelParameters[0]
+        wheelTranslation = wheelParameters[1]
+        wheelRadius = wheelParameters[2]
+        
+        II = abs(wheelTranslation[0]) + abs(wheelTranslation[2])
+        
+        velocityMatrix = np.matrix([[advx],
+                                    [advz],
+                                    [rot]])
+        
+        omnidirectionalMatrix = np.matrix([[1, 1, -II],
+                                           [1, -1, II],
+                                           [1, -1, -II],
+                                           [1, 1, II]])
+        
+        wheelsMatrix = (1/wheelRadius) * omnidirectionalMatrix * velocityMatrix
         wheels = []
         for wheel in range(len(wheelsNames)):
+            print(wheelsMatrix[wheel])
             wheels.append(self.getDevice(wheelsNames[wheel]))
             wheels[wheel].setPosition(float('inf'))
-            wheels[wheel].setVelocity(speed)
+        wheels[0].setVelocity(wheelsMatrix[0])
+        wheels[1].setVelocity(wheelsMatrix[1])
+        wheels[2].setVelocity(wheelsMatrix[2])
+        wheels[3].setVelocity(wheelsMatrix[3])
     
     def avoidRight(self, speed, rot, wheelsNames):
         wheels = []
