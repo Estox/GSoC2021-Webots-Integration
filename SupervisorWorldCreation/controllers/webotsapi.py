@@ -391,47 +391,24 @@ class WebotsAPI(Supervisor):
         wheelsNames = wheelParameters[0]
         wheelTranslation = wheelParameters[1]
         wheelRadius = wheelParameters[2]
-        
+
         II = abs(wheelTranslation[0]) + abs(wheelTranslation[2])
-        
+
         velocityMatrix = np.matrix([[advx],
                                     [advz],
                                     [rot]])
-        
+                                    
         omnidirectionalMatrix = np.matrix([[1, 1, -II],
                                            [1, -1, II],
                                            [1, -1, -II],
                                            [1, 1, II]])
+        wheelsMatrix = np.matmul(omnidirectionalMatrix, velocityMatrix) # * (1 / wheelRadius)
         
-        wheelsMatrix = (1/wheelRadius) * omnidirectionalMatrix * velocityMatrix
-        wheels = []
-        for wheel in range(len(wheelsNames)):
-            print(wheelsMatrix[wheel])
-            wheels.append(self.getDevice(wheelsNames[wheel]))
-            wheels[wheel].setPosition(float('inf'))
-        wheels[0].setVelocity(wheelsMatrix[0])
-        wheels[1].setVelocity(wheelsMatrix[1])
-        wheels[2].setVelocity(wheelsMatrix[2])
-        wheels[3].setVelocity(wheelsMatrix[3])
-    
-    def avoidRight(self, speed, rot, wheelsNames):
         wheels = []
         for wheel in range(len(wheelsNames)):
             wheels.append(self.getDevice(wheelsNames[wheel]))
             wheels[wheel].setPosition(float('inf'))
-            
-        if rot == 0.0:
-            for wheel in range(len(wheelsNames)):
-                wheels.append(self.getDevice(wheelsNames[wheel]))
-                wheels[wheel].setPosition(float('inf'))
-                wheels[wheel].setVelocity(speed)
-        else:
-            leftSpeed = -5.0
-            rightSpeed = 5.0
-            wheels[0].setVelocity(leftSpeed)
-            wheels[1].setVelocity(rightSpeed)
-            wheels[2].setVelocity(leftSpeed)
-            wheels[3].setVelocity(rightSpeed)
+            wheels[wheel].setVelocity(float(wheelsMatrix[wheel][0]))
             
     def enableDevice(self, name):
         device = self.getDevice(name)
