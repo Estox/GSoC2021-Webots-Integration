@@ -1,0 +1,11 @@
+import "Laser.idsl";
+
+Component RangeFinderComponent
+{
+    Communications
+    {
+        implements Laser;
+    };
+    language python;
+};
+
