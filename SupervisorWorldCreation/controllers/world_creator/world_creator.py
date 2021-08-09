@@ -20,17 +20,18 @@ class SceneCreator(WebotsAPI):
 
     def create_scene(self):
         self.arenaNode = self.create_rectangleArena("arena")
-        self.robotNode = self.create_robot("Youbot", "OmnidirectionalPlatform")
+        #self.robotNode = self.create_robot("Youbot", "OmnidirectionalPlatform")
+        self.robotNode = self.create_robot("Ribbit", "void")
         
         translationCameraDevice = [0.255, 0.1, 0]
         rotationCameraDevice = [0, 1, 0, 0]
-        #self.robotNode.addDevice("Camera", "camera", translationCameraDevice, rotationCameraDevice)
+        self.robotNode.addDevice("Camera", "camera", translationCameraDevice, rotationCameraDevice)
         translationDistanceSensorDevice = [0.285, 0, -0.03]
         rotationDistanceSensorDevice = [0, 1, 0, 0]
-        self.robotNode.addDevice("Distance_sensor", "DS", translationDistanceSensorDevice, rotationDistanceSensorDevice,)
+        #self.robotNode.addDevice("Distance_sensor", "DS", translationDistanceSensorDevice, rotationDistanceSensorDevice,)
         translationLidarSensor = [0.255, 0, 0]
         rotationLidarSensor = [0, 1, 0, -1.5708]
-        #self.robotNode.addDevice("Lidar", "lidar", translationLidarSensor, rotationLidarSensor)
+        self.robotNode.addDevice("Lidar", "lidar", translationLidarSensor, rotationLidarSensor)
         size = [0.3, 0.3, 0.3]
         translation1, translation2, translation3, translation4 = [0.7, 0.15, -0.75], [-0.64, 0.15, -0.5],\
         [0.75, 0.15, 0.68],  [-0.89, 0.15, 0.7]

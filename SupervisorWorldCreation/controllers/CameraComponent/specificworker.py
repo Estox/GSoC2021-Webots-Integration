@@ -85,7 +85,7 @@ class SpecificWorker(GenericWorker):
     #
     # IMPLEMENTATION of getAll method from CameraRGBDSimple interface
     #
-    def CameraRGBDSimple_getAll(self, camera):
+    def CameraRGBDSimple_getAll(self):
         ret = RoboCompCameraRGBDSimple.TRGBD()
         #
         # write your CODE here
@@ -94,7 +94,7 @@ class SpecificWorker(GenericWorker):
     #
     # IMPLEMENTATION of getDepth method from CameraRGBDSimple interface
     #
-    def CameraRGBDSimple_getDepth(self, camera):
+    def CameraRGBDSimple_getDepth(self):
         ret = RoboCompCameraRGBDSimple.TDepth()
         #
         # write your CODE here
@@ -103,7 +103,7 @@ class SpecificWorker(GenericWorker):
     #
     # IMPLEMENTATION of getImage method from CameraRGBDSimple interface
     #
-    def CameraRGBDSimple_getImage(self, camera):
+    def CameraRGBDSimple_getImage(self):
         ret = self.WebotsManager.getImage(self.CameraRGBDSimpleName)
         return ret
     # ===================================================================

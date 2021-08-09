@@ -21,26 +21,21 @@
 
 from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
-from rich.console import Console
 from genericworker import *
 
 sys.path.append('..')
 from webotsapi import *
 
-sys.path.append('/opt/robocomp/lib')
-console = Console(highlight=False)
-
-
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
+sys.path.append('/opt/robocomp/lib')
 # import librobocomp_qmat
 # import librobocomp_osgviewer
 # import librobocomp_innermodel
 
-
 class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        
+
         if startup_check:
             self.startup_check()
         else:
@@ -48,18 +43,11 @@ class SpecificWorker(GenericWorker, WebotsAPI):
             self.timer.start(self.Period)
 
     def __del__(self):
-        console.print('SpecificWorker destructor')
+        print('SpecificWorker destructor')
 
     def setParams(self, params):
         try:
             self.WebotsManager = WebotsAPI()
-            self.LaserData = TLaserData()
-            
-            self.DistanceSensorName = self.WebotsManager.getFromDef("Distance_Sensor")\
-            .getField("children").getMFNode(-1).getField("name").getSFString()
-            
-            self.WebotsManager.enableDevice(self.DistanceSensorName)
-            self.TempLaserData = RoboCompLaser.TData()
         except:
             traceback.print_exc()
             print("Error reading config params")
@@ -70,20 +58,9 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            self.TempLaserData.angle = 0.0
-            self.TempLaserData.dist = self.WebotsManager.getDistance(self.DistanceSensorName)
-            self.LaserData.append(self.TempLaserData)
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
-
-        # The API of python-innermodel is not exactly the same as the C++ version
-        # self.innermodel.updateTransformValues('head_rot_tilt_pose', 0, 0, 0, 1.3, 0, 0)
-        # z = librobocomp_qmat.QVec(3,0)
-        # r = self.innermodel.transform('rgbd', z, 'laser')
-        # r.printvector('d')
-        # print(r[0], r[1], r[2])
-
         return True
 
     def startup_check(self):
@@ -98,24 +75,28 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of getLaserAndBStateData method from Laser interface
     #
     def Laser_getLaserAndBStateData(self):
-        ret = self.LaserData #RoboCompLaser.TLaserData()
-        bState = 0
-        print("The method Laser_getLaserAndBStateData got called!")
+        ret = RoboCompLaser.TLaserData()
+        #
+        # write your CODE here
+        #
         return [ret, bState]
     #
     # IMPLEMENTATION of getLaserConfData method from Laser interface
     #
-
     def Laser_getLaserConfData(self):
         ret = RoboCompLaser.LaserConfData()
-        print("The method Laser_getLaserConfData got called!")
+        #
+        # write your CODE here
+        #
         return ret
     #
     # IMPLEMENTATION of getLaserData method from Laser interface
     #
     def Laser_getLaserData(self):
-        ret = self.LaserData #RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserData got called!")
+        ret = RoboCompLaser.TLaserData()
+        #
+        # write your CODE here
+        #
         return ret
     # ===================================================================
     # ===================================================================
@@ -125,3 +106,4 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # From the RoboCompLaser you can use this types:
     # RoboCompLaser.LaserConfData
     # RoboCompLaser.TData
+

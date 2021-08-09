@@ -64,11 +64,10 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            self.OmniRobot_setSpeedBase(0, 0, 1.0)
+            self.OmniRobot_setSpeedBase(1.0, 0, 0)
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
-
         return True
 
     def startup_check(self):

@@ -26,6 +26,6 @@ DEF Lidar Robot {
   boundingObject USE SENSOR
   physics Physics {
   }
-  controller "void"
+  controller "LidarComponent"
   supervisor TRUE
 }
