@@ -1,0 +1,11 @@
+import "OmniRobot.idsl";
+
+Component MainComponent
+{
+    Communications
+    {
+        requires OmniRobot;
+    };
+    language python;
+};
+
