@@ -113,6 +113,23 @@ if __name__ == '__main__':
         parameters[str(i)] = str(ic.getProperties().getProperty(i))
 
 
+    # Remote object connection for Laser
+    try:
+        proxyString = ic.getProperties().getProperty('LaserProxy')
+        try:
+            basePrx = ic.stringToProxy(proxyString)
+            laser_proxy = RoboCompLaser.LaserPrx.uncheckedCast(basePrx)
+            mprx["LaserProxy"] = laser_proxy
+        except Ice.Exception:
+            print('Cannot connect to the remote object (Laser)', proxyString)
+            #traceback.print_exc()
+            status = 1
+    except Ice.Exception as e:
+        print(e)
+        print('Cannot get LaserProxy property.')
+        status = 1
+
+
     # Remote object connection for OmniRobot
     try:
         proxyString = ic.getProperties().getProperty('OmniRobotProxy')

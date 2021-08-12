@@ -33,8 +33,48 @@ import RoboCompCommonBehavior
 
 Ice.loadSlice("-I ./src/ --all ./src/GenericBase.ice")
 import RoboCompGenericBase
+Ice.loadSlice("-I ./src/ --all ./src/Laser.ice")
+import RoboCompLaser
 Ice.loadSlice("-I ./src/ --all ./src/OmniRobot.ice")
 import RoboCompOmniRobot
+
+class shortVector(list):
+    def __init__(self, iterable=list()):
+        super(shortVector, self).__init__(iterable)
+
+    def append(self, item):
+        assert isinstance(item, int)
+        super(shortVector, self).append(item)
+
+    def extend(self, iterable):
+        for item in iterable:
+            assert isinstance(item, int)
+        super(shortVector, self).extend(iterable)
+
+    def insert(self, index, item):
+        assert isinstance(item, int)
+        super(shortVector, self).insert(index, item)
+
+setattr(RoboCompLaser, "shortVector", shortVector)
+
+class TLaserData(list):
+    def __init__(self, iterable=list()):
+        super(TLaserData, self).__init__(iterable)
+
+    def append(self, item):
+        assert isinstance(item, RoboCompLaser.TData)
+        super(TLaserData, self).append(item)
+
+    def extend(self, iterable):
+        for item in iterable:
+            assert isinstance(item, RoboCompLaser.TData)
+        super(TLaserData, self).extend(iterable)
+
+    def insert(self, index, item):
+        assert isinstance(item, RoboCompLaser.TData)
+        super(TLaserData, self).insert(index, item)
+
+setattr(RoboCompLaser, "TLaserData", TLaserData)
 
 
 
@@ -48,6 +88,7 @@ class GenericWorker(QtCore.QObject):
     def __init__(self, mprx):
         super(GenericWorker, self).__init__()
 
+        self.laser_proxy = mprx["LaserProxy"]
         self.omnirobot_proxy = mprx["OmniRobotProxy"]
 
         self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)

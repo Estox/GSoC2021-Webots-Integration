@@ -33,7 +33,7 @@ sys.path.append('/opt/robocomp/lib')
 class SpecificWorker(GenericWorker):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-
+        self.Period = 2000
         if startup_check:
             self.startup_check()
         else:
@@ -54,11 +54,25 @@ class SpecificWorker(GenericWorker):
 
     @QtCore.Slot()
     def compute(self):
-        try:
-            self.omnirobot_proxy.setSpeedBase(1.0, 0, 0)
-        except Ice.Exception as e:
-            traceback.print_exc()
-            print(e)
+        #Here You are able to put simple code to steer the simulation.
+        print('SpecificWorker.compute...')
+        laser_data = self.laser_proxy.getLaserData()
+        curr_distance = laser_data[-1].dist
+        if(curr_distance < 700):
+            self.omnirobot_proxy.setSpeedBase(-1.0, 0, 0)
+        # computeCODE
+        # try:
+        #   self.differentialrobot_proxy.setSpeedBase(100, 0)
+        # except Ice.Exception as e:
+        #   traceback.print_exc()
+        #   print(e)
+
+        # The API of python-innermodel is not exactly the same as the C++ version
+        # self.innermodel.updateTransformValues('head_rot_tilt_pose', 0, 0, 0, 1.3, 0, 0)
+        # z = librobocomp_qmat.QVec(3,0)
+        # r = self.innermodel.transform('rgbd', z, 'laser')
+        # r.printvector('d')
+        # print(r[0], r[1], r[2])
 
         return True
 
@@ -67,6 +81,17 @@ class SpecificWorker(GenericWorker):
 
 
 
+
+    ######################
+    # From the RoboCompLaser you can call this methods:
+    # self.laser_proxy.getLaserAndBStateData(...)
+    # self.laser_proxy.getLaserConfData(...)
+    # self.laser_proxy.getLaserData(...)
+
+    ######################
+    # From the RoboCompLaser you can use this types:
+    # RoboCompLaser.LaserConfData
+    # RoboCompLaser.TData
 
     ######################
     # From the RoboCompOmniRobot you can call this methods:
