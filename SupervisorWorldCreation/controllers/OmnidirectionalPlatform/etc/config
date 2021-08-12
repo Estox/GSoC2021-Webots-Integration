@@ -1,5 +1,5 @@
 # Endpoints for implements interfaces
-OmniRobot.Endpoints=tcp -p 0
+OmniRobot.Endpoints=tcp -p 10005
 
 
 
