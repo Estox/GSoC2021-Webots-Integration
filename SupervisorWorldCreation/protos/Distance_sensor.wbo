@@ -26,6 +26,6 @@ DEF Distance_Sensor Robot {
   boundingObject USE SENSOR
   physics Physics {
   }
-  controller "DistanceSensor"
+  controller "DistanceSensorComponent"
   supervisor TRUE
 }
