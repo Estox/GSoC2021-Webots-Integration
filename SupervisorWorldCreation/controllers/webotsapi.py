@@ -409,6 +409,29 @@ class WebotsAPI(Supervisor):
             wheels.append(self.getDevice(wheelsNames[wheel]))
             wheels[wheel].setPosition(float('inf'))
             wheels[wheel].setVelocity(float(wheelsMatrix[wheel][0]))
+    
+    def calculateWheelDistance(self, wheelsTranslation):
+        left = wheelsTranslation[0]
+        right = wheelsTranslation[1]
+        return sqrt((left[0] - right[0])**2 + (left[1] - right[1])**2 +(left[2] - right[2])**2)
+        
+    def differentialMovement(self, adv, rot, wheelParameters):
+        wheelsNames = wheelParameters[0]
+        wheelsTranslation = wheelParameters[1]
+        wheelRadius = wheelParameters[2] 
+        wheelDistance = self.calculateWheelDistance(wheelsTranslation)
+        
+        velocity = []
+        #Left wheel's velocity
+        velocity.append((adv - (-rot * wheelDistance)/2.) / wheelRadius)
+        #Right wheel's velocity
+        velocity.append((adv + (-rot * wheelDistance)/2.) / wheelRadius)
+        
+        wheels = []
+        for wheel in range(len(wheelsNames)):
+            wheels.append(self.getDevice(wheelsNames[wheel]))
+            wheels[wheel].setPosition(float('inf'))
+            wheels[wheel].setVelocity(velocity[wheel])
             
     def enableDevice(self, name):
         device = self.getDevice(name)

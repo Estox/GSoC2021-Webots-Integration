@@ -234,7 +234,7 @@ DEF Ribbit Robot {
                 boundingObject Transform {
                   rotation 1 0 0 1.5708
                   children [
-                    Cylinder {
+                    DEF WHEEL_SOLID Cylinder {
                       height 0.04
                       radius 0.0985
                     }
@@ -320,7 +320,7 @@ DEF Ribbit Robot {
                 boundingObject Transform {
                   rotation 1 0 0 1.5708
                   children [
-                    Cylinder {
+                    DEF WHEEL_SOLID Cylinder {
                       height 0.04
                       radius 0.0985
                     }

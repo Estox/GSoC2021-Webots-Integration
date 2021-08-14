@@ -1,0 +1,11 @@
+import "DifferentialRobot.idsl";
+
+Component DirectionalPlatform
+{
+    Communications
+    {
+        implements DifferentialRobot;
+    };
+    language python;
+};
+
