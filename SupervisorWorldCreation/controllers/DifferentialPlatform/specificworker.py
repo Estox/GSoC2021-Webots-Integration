@@ -35,7 +35,7 @@ sys.path.append('/opt/robocomp/lib')
 class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        
+
         if startup_check:
             self.startup_check()
         else:
@@ -66,7 +66,6 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def compute(self):
         try:
             self.WebotsManager.simulationStep()
-            self.DifferentialRobot_setSpeedBase(0.4, 1.0)
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
@@ -84,7 +83,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of correctOdometer method from DifferentialRobot interface
     #
     def DifferentialRobot_correctOdometer(self, x, z, alpha):
-    
+
         #
         # write your CODE here
         #
@@ -95,7 +94,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of getBasePose method from DifferentialRobot interface
     #
     def DifferentialRobot_getBasePose(self):
-    
+
         #
         # write your CODE here
         #
@@ -104,7 +103,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of getBaseState method from DifferentialRobot interface
     #
     def DifferentialRobot_getBaseState(self):
-    
+
         #
         # write your CODE here
         #
@@ -114,7 +113,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of resetOdometer method from DifferentialRobot interface
     #
     def DifferentialRobot_resetOdometer(self):
-    
+
         #
         # write your CODE here
         #
@@ -125,7 +124,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of setOdometer method from DifferentialRobot interface
     #
     def DifferentialRobot_setOdometer(self, state):
-    
+
         #
         # write your CODE here
         #
@@ -136,7 +135,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of setOdometerPose method from DifferentialRobot interface
     #
     def DifferentialRobot_setOdometerPose(self, x, z, alpha):
-    
+
         #
         # write your CODE here
         #
@@ -155,7 +154,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     # IMPLEMENTATION of stopBase method from DifferentialRobot interface
     #
     def DifferentialRobot_stopBase(self):
-    
+
         #
         # write your CODE here
         #
@@ -169,4 +168,3 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     ######################
     # From the RoboCompDifferentialRobot you can use this types:
     # RoboCompDifferentialRobot.TMechParams
-

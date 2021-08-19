@@ -1,11 +1,11 @@
-import "OmniRobot.idsl";
+import "DifferentialRobot.idsl";
 import "Laser.idsl";
 
 Component MainComponent
 {
     Communications
     {
-        requires OmniRobot, Laser;
+        requires DifferentialRobot, Laser;
     };
     language python;
 };

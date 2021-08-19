@@ -12,7 +12,7 @@ DEF Distance_Sensor Robot {
             metalness 0
           }
           geometry Box {
-            size 0.01 0.01 0.01
+            size 0.001 0.001 0.001
           }
         }
       ]
@@ -26,6 +26,6 @@ DEF Distance_Sensor Robot {
   boundingObject USE SENSOR
   physics Physics {
   }
-  controller "DistanceSensor"
+  controller "DistanceSensorComponent"
   supervisor TRUE
 }

@@ -23,6 +23,7 @@ from PySide2.QtCore import QTimer
 from PySide2.QtWidgets import QApplication
 from genericworker import *
 
+import time
 
 # If RoboComp was compiled with Python bindings you can use InnerModel in Python
 sys.path.append('/opt/robocomp/lib')
@@ -33,7 +34,7 @@ sys.path.append('/opt/robocomp/lib')
 class SpecificWorker(GenericWorker):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-        self.Period = 2000
+        self.Period = 200
         if startup_check:
             self.startup_check()
         else:
@@ -57,9 +58,13 @@ class SpecificWorker(GenericWorker):
         #Here You are able to put simple code to steer the simulation.
         print('SpecificWorker.compute...')
         laser_data = self.laser_proxy.getLaserData()
-        curr_distance = laser_data[-1].dist
-        if(curr_distance < 700):
-            self.omnirobot_proxy.setSpeedBase(-1.0, 0, 0)
+        for i in range(len(laser_data)):
+            distance = laser_data[i].dist
+            if distance < 0.5:
+                self.differentialrobot_proxy.setSpeedBase(0, 0.4)
+                time.sleep(4)
+                break
+        self.differentialrobot_proxy.setSpeedBase(0.2, 0)
         # computeCODE
         # try:
         #   self.differentialrobot_proxy.setSpeedBase(100, 0)

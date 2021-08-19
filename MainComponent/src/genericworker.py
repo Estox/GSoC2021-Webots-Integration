@@ -31,12 +31,12 @@ except KeyError:
 Ice.loadSlice("-I ./src/ --all ./src/CommonBehavior.ice")
 import RoboCompCommonBehavior
 
+Ice.loadSlice("-I ./src/ --all ./src/DifferentialRobot.ice")
+import RoboCompDifferentialRobot
 Ice.loadSlice("-I ./src/ --all ./src/GenericBase.ice")
 import RoboCompGenericBase
 Ice.loadSlice("-I ./src/ --all ./src/Laser.ice")
 import RoboCompLaser
-Ice.loadSlice("-I ./src/ --all ./src/OmniRobot.ice")
-import RoboCompOmniRobot
 
 class shortVector(list):
     def __init__(self, iterable=list()):
@@ -88,8 +88,8 @@ class GenericWorker(QtCore.QObject):
     def __init__(self, mprx):
         super(GenericWorker, self).__init__()
 
+        self.differentialrobot_proxy = mprx["DifferentialRobotProxy"]
         self.laser_proxy = mprx["LaserProxy"]
-        self.omnirobot_proxy = mprx["OmniRobotProxy"]
 
         self.mutex = QtCore.QMutex(QtCore.QMutex.Recursive)
         self.Period = 30

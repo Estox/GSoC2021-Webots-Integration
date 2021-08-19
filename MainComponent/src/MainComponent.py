@@ -113,6 +113,23 @@ if __name__ == '__main__':
         parameters[str(i)] = str(ic.getProperties().getProperty(i))
 
 
+    # Remote object connection for DifferentialRobot
+    try:
+        proxyString = ic.getProperties().getProperty('DifferentialRobotProxy')
+        try:
+            basePrx = ic.stringToProxy(proxyString)
+            differentialrobot_proxy = RoboCompDifferentialRobot.DifferentialRobotPrx.uncheckedCast(basePrx)
+            mprx["DifferentialRobotProxy"] = differentialrobot_proxy
+        except Ice.Exception:
+            print('Cannot connect to the remote object (DifferentialRobot)', proxyString)
+            #traceback.print_exc()
+            status = 1
+    except Ice.Exception as e:
+        print(e)
+        print('Cannot get DifferentialRobotProxy property.')
+        status = 1
+
+
     # Remote object connection for Laser
     try:
         proxyString = ic.getProperties().getProperty('LaserProxy')
@@ -127,23 +144,6 @@ if __name__ == '__main__':
     except Ice.Exception as e:
         print(e)
         print('Cannot get LaserProxy property.')
-        status = 1
-
-
-    # Remote object connection for OmniRobot
-    try:
-        proxyString = ic.getProperties().getProperty('OmniRobotProxy')
-        try:
-            basePrx = ic.stringToProxy(proxyString)
-            omnirobot_proxy = RoboCompOmniRobot.OmniRobotPrx.uncheckedCast(basePrx)
-            mprx["OmniRobotProxy"] = omnirobot_proxy
-        except Ice.Exception:
-            print('Cannot connect to the remote object (OmniRobot)', proxyString)
-            #traceback.print_exc()
-            status = 1
-    except Ice.Exception as e:
-        print(e)
-        print('Cannot get OmniRobotProxy property.')
         status = 1
 
     if status == 0:

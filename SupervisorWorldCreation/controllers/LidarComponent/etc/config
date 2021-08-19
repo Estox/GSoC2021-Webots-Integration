@@ -1,5 +1,5 @@
 # Endpoints for implements interfaces
-Laser.Endpoints=tcp -p 0
+Laser.Endpoints=tcp -p 10006
 
 
 

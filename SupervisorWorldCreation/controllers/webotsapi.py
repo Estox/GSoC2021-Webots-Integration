@@ -12,7 +12,7 @@ class RectangleArena(object):
         
         floorSize = [3,3]
         floorTileSize = [0.25, 0.25]
-        wallHeight = 0.05
+        wallHeight = 0.4
         
         base_str = ''.join(open('../../protos/rectangle_arena.wbo', 'r').readlines())
         string = base_str.replace('SEEDNAME', self.name)
@@ -296,7 +296,7 @@ class Object(object):
         return self.handle.getField('boundingObject')
 """
 class Device(object):
-    #Currently available "Distance_sensor", "Lidar", "Camera"
+    #Currently available "Distance_sensor", "Lidar", "Camera", "Range_finder"
     def __init__(self, deviceName, name, translation, rotation, children):
         self.name = name
         self.translation = translation
@@ -420,13 +420,11 @@ class WebotsAPI(Supervisor):
         wheelsTranslation = wheelParameters[1]
         wheelRadius = wheelParameters[2] 
         wheelDistance = self.calculateWheelDistance(wheelsTranslation)
-        
         velocity = []
         #Left wheel's velocity
         velocity.append((adv - (-rot * wheelDistance)/2.) / wheelRadius)
         #Right wheel's velocity
         velocity.append((adv + (-rot * wheelDistance)/2.) / wheelRadius)
-        
         wheels = []
         for wheel in range(len(wheelsNames)):
             wheels.append(self.getDevice(wheelsNames[wheel]))
@@ -437,9 +435,17 @@ class WebotsAPI(Supervisor):
         device = self.getDevice(name)
         device.enable(self.stepTime)      
         
+    def enableDevicePointCloud(self, name):
+        device = self.getDevice(name)
+        device.enablePointCloud()
+
     def getDistance(self, name):
         distanceSensor = self.getDevice(name)
         return distanceSensor.getValue() 
+        
+    def getLayerRangeImageArray(self, name, layer):
+        lidar = self.getDevice(name)
+        return lidar.getLayerRangeImage(layer)
         
     def create_floor(self, name, size):
         self.rootChildren.importMFNodeFromString(-3, "DEF " + name + " Floor {}")  # Add floor

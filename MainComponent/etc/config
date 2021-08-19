@@ -1,6 +1,6 @@
 # Proxies for required interfaces
-LaserProxy = laser:tcp -h localhost -p 10003
-OmniRobotProxy = omnirobot:tcp -h localhost -p 10005
+LaserProxy = laser:tcp -h localhost -p 10006
+DifferentialRobotProxy = differentialrobot:tcp -h localhost -p 10007
 
 
 

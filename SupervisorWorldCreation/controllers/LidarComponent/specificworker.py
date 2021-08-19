@@ -35,7 +35,6 @@ sys.path.append('/opt/robocomp/lib')
 class SpecificWorker(GenericWorker, WebotsAPI):
     def __init__(self, proxy_map, startup_check=False):
         super(SpecificWorker, self).__init__(proxy_map)
-
         if startup_check:
             self.startup_check()
         else:
@@ -48,6 +47,14 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def setParams(self, params):
         try:
             self.WebotsManager = WebotsAPI()
+            
+            self.LidarName = self.WebotsManager.getFromDef("Lidar")\
+            .getField("children").getMFNode(-1).getField("name").getSFString()
+            
+            self.WebotsManager.enableDevice(self.LidarName)
+            #self.WebotsManager.enableDevicePointCloud(self.LidarName)
+            self.TempLaserData = RoboCompLaser.TData()
+            self.TempLaserData.angle = 0
         except:
             traceback.print_exc()
             print("Error reading config params")
@@ -94,9 +101,13 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     #
     def Laser_getLaserData(self):
         ret = RoboCompLaser.TLaserData()
-        #
-        # write your CODE here
-        #
+        data = self.WebotsManager.getLayerRangeImageArray(self.LidarName, 1)
+        del data[1536:]
+        data = [i for i in data if i != float('inf')]
+        for point in range(int(len(data))):
+            self.TempLaserData.dist = data[point]
+            ret.append(self.TempLaserData)
+        print(len(ret))
         return ret
     # ===================================================================
     # ===================================================================

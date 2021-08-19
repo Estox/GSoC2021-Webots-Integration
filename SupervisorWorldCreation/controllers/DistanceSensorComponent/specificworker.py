@@ -100,7 +100,6 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def Laser_getLaserAndBStateData(self):
         ret = self.LaserData #RoboCompLaser.TLaserData()
         bState = 0
-        print("The method Laser_getLaserAndBStateData got called!")
         return [ret, bState]
     #
     # IMPLEMENTATION of getLaserConfData method from Laser interface
@@ -108,14 +107,12 @@ class SpecificWorker(GenericWorker, WebotsAPI):
 
     def Laser_getLaserConfData(self):
         ret = RoboCompLaser.LaserConfData()
-        print("The method Laser_getLaserConfData got called!")
         return ret
     #
     # IMPLEMENTATION of getLaserData method from Laser interface
     #
     def Laser_getLaserData(self):
         ret = self.LaserData #RoboCompLaser.TLaserData()
-        print("The method Laser_getLaserData got called!")
         return ret
     # ===================================================================
     # ===================================================================
