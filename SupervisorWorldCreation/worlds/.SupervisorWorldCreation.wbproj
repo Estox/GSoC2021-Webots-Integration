@@ -5,7 +5,7 @@ sceneTreePerspectives: 000000ff000000010000000200000150000000fa01000000020100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 4 "controllers/world_creator/world_creator.py" "controllers/webotsapi.py" "controllers/LidarComponent/specificworker.py" "../MainComponent/src/specificworker.py" "controllers/DifferentialPlatform/specificworker.py" "protos/Ribbit.wbo"
+textFiles: 0 "controllers/world_creator/world_creator.py" "controllers/webotsapi.py" "controllers/LidarComponent/specificworker.py" "../MainComponent/src/specificworker.py" "controllers/DifferentialPlatform/specificworker.py" "controllers/DistanceSensorComponent/specificworker.py"
 globalOptionalRendering: DistanceSensorRays::LidarRaysPaths::LidarPointClouds
 consoles: Console:All:All
 renderingDevicePerspectives: Ribbit:robot(1):rangefinder;1;1;0;0

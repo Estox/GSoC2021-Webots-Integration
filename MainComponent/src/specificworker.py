@@ -57,6 +57,7 @@ class SpecificWorker(GenericWorker):
     def compute(self):
         #Here You are able to put simple code to steer the simulation.
         print('SpecificWorker.compute...')
+        self.Period = 300
         laser_data = self.laser_proxy.getLaserData()
         for i in range(len(laser_data)):
             distance = laser_data[i].dist

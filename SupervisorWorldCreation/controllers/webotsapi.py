@@ -443,7 +443,7 @@ class WebotsAPI(Supervisor):
         distanceSensor = self.getDevice(name)
         return distanceSensor.getValue() 
         
-    def getLayerRangeImageArray(self, name, layer):
+    def getRange(self, name, layer):
         lidar = self.getDevice(name)
         return lidar.getLayerRangeImage(layer)
         

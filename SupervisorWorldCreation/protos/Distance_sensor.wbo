@@ -4,26 +4,11 @@ DEF Distance_Sensor Robot {
     DEF SEEDNAME DistanceSensor {
       translation translationX translationY translationZ
       rotation rotationX rotationY rotationZ rotationROT
-      children [
-        DEF SENSOR Shape {
-          appearance PBRAppearance {
-            baseColor 0.2 0.4 0.6
-            roughness 1
-            metalness 0
-          }
-          geometry Box {
-            size 0.001 0.001 0.001
-          }
-        }
-      ]
       name "ds_center"
-      boundingObject USE SENSOR
       physics Physics {
     }
     }
   ]
-
-  boundingObject USE SENSOR
   physics Physics {
   }
   controller "DistanceSensorComponent"

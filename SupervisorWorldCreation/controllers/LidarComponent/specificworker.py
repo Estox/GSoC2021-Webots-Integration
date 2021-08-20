@@ -47,6 +47,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     def setParams(self, params):
         try:
             self.WebotsManager = WebotsAPI()
+            self.Period = 300
             
             self.LidarName = self.WebotsManager.getFromDef("Lidar")\
             .getField("children").getMFNode(-1).getField("name").getSFString()
@@ -64,7 +65,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     @QtCore.Slot()
     def compute(self):
         try:
-            self.WebotsManager.simulationStep()
+            self.WebotsManager.simulationStep()        
         except Ice.Exception as e:
             traceback.print_exc()
             print(e)
@@ -83,9 +84,7 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     #
     def Laser_getLaserAndBStateData(self):
         ret = RoboCompLaser.TLaserData()
-        #
-        # write your CODE here
-        #
+        data = self.WebotsManager.getCloud(self.LidarName)
         return [ret, bState]
     #
     # IMPLEMENTATION of getLaserConfData method from Laser interface
@@ -101,13 +100,12 @@ class SpecificWorker(GenericWorker, WebotsAPI):
     #
     def Laser_getLaserData(self):
         ret = RoboCompLaser.TLaserData()
-        data = self.WebotsManager.getLayerRangeImageArray(self.LidarName, 1)
+        data = self.WebotsManager.getRange(self.LidarName, 1)
         del data[1536:]
         data = [i for i in data if i != float('inf')]
-        for point in range(int(len(data))):
-            self.TempLaserData.dist = data[point]
+        for index in range(len(data)):
+            self.TempLaserData.dist = data[index]
             ret.append(self.TempLaserData)
-        print(len(ret))
         return ret
     # ===================================================================
     # ===================================================================

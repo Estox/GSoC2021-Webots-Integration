@@ -4,26 +4,11 @@ DEF RangeFinder Robot {
     DEF SEEDNAME RangeFinder {
       translation translationX translationY translationZ
       rotation rotationX rotationY rotationZ rotationROT
-      children [
-        DEF SENSOR Shape {
-          appearance PBRAppearance {
-            baseColor 0.2 0.4 0.6
-            roughness 1
-            metalness 0
-          }
-          geometry Box {
-            size 0.001 0.001 0.001
-          }
-        }
-      ]
       name "rangefinder"
-      boundingObject USE SENSOR
       physics Physics {
     }
     }
   ]
-
-  boundingObject USE SENSOR
   physics Physics {
   }
   controller "RangeFinderComponent"
