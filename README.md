@@ -11,7 +11,7 @@ https://docs.google.com/document/d/1Zj_anXAmInS_kZD7t1yoKFifpJ2P8nekIXnek1a7H7E/
 Google Summer of Code 2021
 --------------------------
 
-This repository is the result of the 2021 Google Summer of Code idea "Webots integration with RoboComp" suggested by RoboComp. The project was mentored by Ronit Jorvekar and Daniel Rodríguez and done by a student Kacper Kujawski. For more detailed information about the work done during GSoC, containing changes in code and new code, check out the [commit history](https://github.com/Estox/GSoC2021-Webots-Integration/commits/master) of this repository.
+This repository is the result of the 2021 Google Summer of Code idea "Webots integration with RoboComp" suggested by RoboComp. The project was mentored by Ronit Jorvekar and Daniel Rodríguez and done by a student Kacper Kujawski. For more detailed information about the work done during GSoC, containing changes in code and new code, check out the [commit history](https://github.com/Estox/GSoC2021-Webots-Integration/commits/main) of this repository.
 
 Requirements
 ------------
